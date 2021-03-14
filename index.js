@@ -3,12 +3,13 @@ var text = '';
 var wordFrequencies = {};
 fs.readFile('text.txt', (err, data) => {
     data.toString()
-        .split(' ')
+        .replace(/[^\w\s]|_|'s/g, "")
+        .split(/\s+/)
         .forEach((word) => {
-            if (!(word in wordFrequencies)) {
-                wordFrequencies[word] = 1;
-            } else {
-                wordFrequencies[word] = wordFrequencies[word] + 1;
+            if(!(word.toLowerCase() in wordFrequencies)){
+                wordFrequencies[word.toLowerCase()] = 1;
+            }else{
+                ++wordFrequencies[word.toLowerCase()];
             }
         })
 
